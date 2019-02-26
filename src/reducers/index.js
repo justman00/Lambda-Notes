@@ -14,11 +14,11 @@ const notesReducer = (state = {}, action) => {
       action.payload.map(note => (newState[note._id] = note));
       return { ...state, ...newState };
     case FETCH_NOTE:
-      return { ...state, [action.payload.id]: action.payload };
+      return { ...state, [action.payload._id]: action.payload };
     case CREATE_NOTE:
       return { ...state };
     case EDIT_NOTE:
-      return { ...state, [action.payload.id]: action.payload };
+      return { ...state, [action.payload._id]: action.payload };
     case DELETE_NOTE:
       const withoutDeleted = {};
       Object.keys(state).forEach(key => {

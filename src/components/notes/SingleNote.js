@@ -1,7 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { fetchNote } from "../../actions";
 
-const SingleNote = props => {
-  return <h1>SingleNote</h1>;
+const SingleNote = ({ match, fetchNote, note }) => {
+  useEffect(() => {
+    fetchNote(match.params.id);
+  }, []);
+
+  console.log(note);
+  if (!note) {
+    return <div>Loading...</div>;
+  }
+
+  return <h1>{note.title}</h1>;
 };
 
-export default SingleNote;
+const mapStateToProps = (state, ownProps) => ({
+  note: state.notes[ownProps.match.params.id]
+});
+
+export default connect(
+  mapStateToProps,
+  { fetchNote }
+)(SingleNote);

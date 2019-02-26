@@ -1,13 +1,39 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { fetchNotes } from "../../actions";
 import { connect } from "react-redux";
+import styled from "styled-components";
+import NoteCard from "./NoteCard";
+
+const List = styled.section`
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  justify-content: space-about;
+`;
 
 const ListNotes = props => {
-  props.fetchNotes();
-  return <h1>List of Notes</h1>;
+  console.log(props);
+  useEffect(() => {
+    props.fetchNotes();
+  }, []);
+
+  if (props.allNotes.length === 0) {
+    return <div>Loading...</div>;
+  }
+  return (
+    <List>
+      {props.allNotes.map(note => {
+        return <NoteCard key={note._id} note={note} />;
+      })}
+    </List>
+  );
 };
 
+const mapStateToProps = state => ({
+  allNotes: Object.values(state.notes)
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   { fetchNotes }
 )(ListNotes);
