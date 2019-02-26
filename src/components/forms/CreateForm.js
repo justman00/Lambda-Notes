@@ -1,7 +1,13 @@
 import React from "react";
+import FormSubcomponent from "./FormSubcomponent";
+import { connect } from "react-redux";
+import { createNote } from "../../actions";
 
 const CreateForm = props => {
-  return <h1>CreateForm</h1>;
+  return <FormSubcomponent history={props.history} action={props.createNote} />;
 };
 
-export default CreateForm;
+export default connect(
+  null,
+  { createNote }
+)(CreateForm);

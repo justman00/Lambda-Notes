@@ -7,7 +7,6 @@ const SingleNote = ({ match, fetchNote, note }) => {
     fetchNote(match.params.id);
   }, []);
 
-  console.log(note);
   if (!note) {
     return <div>Loading...</div>;
   }

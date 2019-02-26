@@ -12,8 +12,8 @@ const List = styled.section`
 `;
 
 const ListNotes = props => {
-  console.log(props);
   useEffect(() => {
+    console.log("changing");
     props.fetchNotes();
   }, []);
 
