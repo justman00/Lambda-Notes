@@ -33,6 +33,6 @@ export default withFormik({
     textBody: yup.string().required("Enter your note please")
   }),
   handleSubmit({ title, textBody }, { props }) {
-    props.action({ title, textBody }).then(() => props.history.push("/"));
+    props.action({ title, textBody });
   }
 })(FormSubcomponent);

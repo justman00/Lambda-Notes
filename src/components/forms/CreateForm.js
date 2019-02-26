@@ -4,7 +4,11 @@ import { connect } from "react-redux";
 import { createNote } from "../../actions";
 
 const CreateForm = props => {
-  return <FormSubcomponent history={props.history} action={props.createNote} />;
+  function onSubmit(formValues) {
+    props.createNote(formValues).then(() => props.history.push("/"));
+  }
+
+  return <FormSubcomponent history={props.history} action={onSubmit} />;
 };
 
 export default connect(
