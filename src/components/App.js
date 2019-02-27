@@ -14,15 +14,21 @@ const MainLayout = styled.div`
   width: 100%;
 `;
 
+const SecondItem = styled.div`
+  width: 80%;
+`;
+
 const App = () => {
   return (
     <MainLayout>
       <SideBar />
-      <Route path="/" exact component={ListNotes} />
-      <Route path="/note/:id" component={SingleNote} />
-      <Route path="/create" component={CreateForm} />
-      <Route path="/edit/:id" component={EditForm} />
-      <Route path="/delete/:id" component={DeleteForm} />
+      <SecondItem>
+        <Route path="/" exact component={ListNotes} />
+        <Route path="/note/:id" component={SingleNote} />
+        <Route path="/create" component={CreateForm} />
+        <Route path="/edit/:id" component={EditForm} />
+        <Route path="/delete/:id" component={DeleteForm} />
+      </SecondItem>
     </MainLayout>
   );
 };

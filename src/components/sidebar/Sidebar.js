@@ -4,10 +4,9 @@ import { Link } from "react-router-dom";
 import "../App.css";
 
 const StyledSidebar = styled.nav`
-  width: 30%;
+  width: 20%;
   background: gray;
   display: flex;
-  height: 100vh;
   flex-direction: column;
   align-items: center;
 `;

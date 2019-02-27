@@ -8,7 +8,13 @@ const List = styled.section`
   display: flex;
   align-items: baseline;
   flex-wrap: wrap;
-  justify-content: space-about;
+  width: 100%;
+`;
+
+const MainText = styled.h2`
+  font-size: 3rem;
+  margin: 50px;
+  font-family: sans-serif;
 `;
 
 const ListNotes = props => {
@@ -21,11 +27,14 @@ const ListNotes = props => {
     return <div>Loading...</div>;
   }
   return (
-    <List>
-      {props.allNotes.map(note => {
-        return <NoteCard key={note._id} note={note} />;
-      })}
-    </List>
+    <>
+      <MainText>Your Notes</MainText>
+      <List>
+        {props.allNotes.map(note => {
+          return <NoteCard key={note._id} note={note} />;
+        })}
+      </List>
+    </>
   );
 };
 
