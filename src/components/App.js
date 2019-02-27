@@ -6,17 +6,24 @@ import SingleNote from "./notes/SingleNote";
 import CreateForm from "./forms/CreateForm";
 import EditForm from "./forms/EditForm";
 import DeleteForm from "./forms/DeleteForm";
+import "./App.css";
+import styled from "styled-components";
+
+const MainLayout = styled.div`
+  display: flex;
+  width: 100%;
+`;
 
 const App = () => {
   return (
-    <>
+    <MainLayout>
       <SideBar />
       <Route path="/" exact component={ListNotes} />
       <Route path="/note/:id" component={SingleNote} />
       <Route path="/create" component={CreateForm} />
       <Route path="/edit/:id" component={EditForm} />
       <Route path="/delete/:id" component={DeleteForm} />
-    </>
+    </MainLayout>
   );
 };
 
