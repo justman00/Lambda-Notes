@@ -7,16 +7,16 @@ const EditForm = props => {
   function onSubmit(formValues) {
     props
       .editNote(props.match.params.id, formValues)
-      .then(() => props.history.push("/"));
+      .then(() => props.history.goBack());
   }
 
-  console.log(props.match.params.id);
+  // console.log(props.match.params.id);
 
   useEffect(() => {
     props.fetchNote(props.match.params.id);
   }, []);
 
-  console.log(props.note);
+  // console.log(props.note);
 
   if (!props.note) {
     return <div>Loading...</div>;

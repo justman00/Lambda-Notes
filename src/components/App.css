@@ -153,6 +153,12 @@ body {
 #root {
   height: 100%;
   width: 100%;
+  position: relative;
+}
+
+#modal {
+  position: absolute;
+  top: 0;
 }
 
 .form-title {

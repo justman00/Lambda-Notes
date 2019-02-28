@@ -14,6 +14,11 @@ const SingleNoteStyled = styled.section`
     text-decoration: none;
     font-size: 2rem;
     border-radius: 10px;
+
+    &:last-child {
+      margin-left: 50px;
+      background: red;
+    }
   }
 `;
 
@@ -44,6 +49,7 @@ const SingleNote = ({ match, fetchNote, note }) => {
       <BodyText>{note.textBody}</BodyText>
 
       <Link to={`/edit/${note._id}`}>Edit this note</Link>
+      <Link to={`/delete/${note._id}`}>Delete this note</Link>
     </SingleNoteStyled>
   );
 };

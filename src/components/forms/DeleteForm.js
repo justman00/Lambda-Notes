@@ -8,14 +8,23 @@ const DeleteForm = props => {
     props.fetchNote(props.match.params.id);
   }, []);
 
+  console.log(props.history);
+
+  function onDismiss(e) {
+    e.stopPropagation();
+    props.history.goBack();
+  }
+
   function onDelete() {
     props.deleteNote(props.match.params.id).then(() => props.history.push("/"));
   }
-  console.log(props.note);
+  // console.log(props.note);
   if (!props.note) {
     return <div>Loading...</div>;
   }
-  return <Modal title={props.note.title} onDelete={onDelete} />;
+  return (
+    <Modal title={props.note.title} onDelete={onDelete} onDismiss={onDismiss} />
+  );
 };
 
 const mapStateToProps = (state, ownProps) => ({
