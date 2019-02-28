@@ -4,7 +4,8 @@ import {
   FETCH_NOTES,
   CREATE_NOTE,
   EDIT_NOTE,
-  DELETE_NOTE
+  DELETE_NOTE,
+  SORT_BY_LENGTH
 } from "../actions/types";
 
 const notesReducer = (state = {}, action) => {
@@ -12,13 +13,13 @@ const notesReducer = (state = {}, action) => {
     case FETCH_NOTES:
       const newState = {};
       action.payload.map(note => (newState[note._id] = note));
-      return { ...state, ...newState };
+      return { ...newState };
     case FETCH_NOTE:
-      return { ...state, [action.payload._id]: action.payload };
+      return { [action.payload._id]: action.payload };
     case CREATE_NOTE:
       return { ...state };
     case EDIT_NOTE:
-      return { ...state, [action.payload._id]: action.payload };
+      return { [action.payload._id]: action.payload };
     case DELETE_NOTE:
       const withoutDeleted = {};
       Object.keys(state).forEach(key => {
@@ -27,6 +28,8 @@ const notesReducer = (state = {}, action) => {
         }
       });
       return { ...withoutDeleted };
+    case SORT_BY_LENGTH:
+      return { ...action.payload };
     default:
       return state;
   }
