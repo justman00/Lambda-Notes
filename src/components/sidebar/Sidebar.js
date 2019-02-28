@@ -9,6 +9,7 @@ const StyledSidebar = styled.nav`
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100vh;
 `;
 
 const Name = styled.h1`

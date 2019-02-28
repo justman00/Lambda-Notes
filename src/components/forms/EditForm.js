@@ -10,7 +10,13 @@ const EditForm = props => {
       .then(() => props.history.push("/"));
   }
 
-  return <FormSubcomponent action={onSubmit} history={props.history} />;
+  return (
+    <FormSubcomponent
+      action={onSubmit}
+      history={props.history}
+      typeOfForm={"Edit Your Note"}
+    />
+  );
 };
 
 export default connect(

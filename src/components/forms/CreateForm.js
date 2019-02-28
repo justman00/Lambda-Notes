@@ -8,7 +8,13 @@ const CreateForm = props => {
     props.createNote(formValues).then(() => props.history.push("/"));
   }
 
-  return <FormSubcomponent history={props.history} action={onSubmit} />;
+  return (
+    <FormSubcomponent
+      history={props.history}
+      action={onSubmit}
+      typeOfForm={"Delete Your Note"}
+    />
+  );
 };
 
 export default connect(

@@ -4,19 +4,31 @@ import { connect } from "react-router-dom";
 import { createNote } from "../../actions";
 import * as yup from "yup";
 
-const FormSubcomponent = ({ values, errors, touched, handleChange }) => {
+import "../App.css";
+
+const FormSubcomponent = ({
+  values,
+  errors,
+  touched,
+  handleChange,
+  typeOfForm
+}) => {
   return (
     <Form>
-      <Field name="title" placeholder="Title" />{" "}
+      <h2 className="form-title">{typeOfForm}</h2>
+      <Field className="input-main" name="title" placeholder="Title" />{" "}
       <textarea
         name="textBody"
-        cols="30"
-        rows="10"
+        cols="40"
+        rows="15"
         onChange={handleChange}
         placeholder="Your note goes here"
         value={values.textBody}
+        className="textarea-main"
       />
-      <button type="submit">Submit</button>
+      <button className="btn-submit" type="submit">
+        Submit
+      </button>
     </Form>
   );
 };

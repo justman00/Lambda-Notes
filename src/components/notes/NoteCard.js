@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const Card = styled.div`
   margin: 30px;
@@ -24,8 +25,13 @@ const Card = styled.div`
 export default function NoteCard({ note }) {
   return (
     <Card>
-      <h1>{note.title}</h1>
-      <p>{note.textBody}</p>
+      <Link
+        style={{ color: "black", textDecoration: "none" }}
+        to={`/note/${note._id}`}
+      >
+        <h1>{note.title}</h1>
+        <p>{note.textBody}</p>
+      </Link>
     </Card>
   );
 }
