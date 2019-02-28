@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import FormSubcomponent from "./FormSubcomponent";
-import { editNote } from "../../actions";
+import { editNote, fetchNote } from "../../actions";
 
 const EditForm = props => {
   function onSubmit(formValues) {
@@ -10,16 +10,34 @@ const EditForm = props => {
       .then(() => props.history.push("/"));
   }
 
+  console.log(props.match.params.id);
+
+  useEffect(() => {
+    props.fetchNote(props.match.params.id);
+  }, []);
+
+  console.log(props.note);
+
+  if (!props.note) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <FormSubcomponent
       action={onSubmit}
       history={props.history}
       typeOfForm={"Edit Your Note"}
+      textBody={props.note.textBody}
+      title={props.note.title}
     />
   );
 };
 
+const mapStateToProps = (state, ownProps) => ({
+  note: state.notes[ownProps.match.params.id]
+});
+
 export default connect(
-  null,
-  { editNote }
+  mapStateToProps,
+  { editNote, fetchNote }
 )(EditForm);

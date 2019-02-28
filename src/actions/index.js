@@ -21,11 +21,7 @@ export const fetchNote = id => async dispatch => {
 };
 
 export const createNote = formValues => async dispatch => {
-  const res = await axios.post(
-    `https://fe-notes.herokuapp.com/note/create`,
-    formValues
-  );
-  console.log(res);
+  await axios.post(`https://fe-notes.herokuapp.com/note/create`, formValues);
   dispatch({ type: CREATE_NOTE });
 };
 

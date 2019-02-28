@@ -34,10 +34,11 @@ const FormSubcomponent = ({
 };
 
 export default withFormik({
-  mapPropsToValues({ title, textBody }) {
+  mapPropsToValues(props) {
+    console.log(props);
     return {
-      title,
-      textBody
+      title: props.title,
+      textBody: props.textBody
     };
   },
   validationSchema: yup.object().shape({

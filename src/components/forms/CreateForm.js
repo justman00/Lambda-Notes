@@ -12,7 +12,7 @@ const CreateForm = props => {
     <FormSubcomponent
       history={props.history}
       action={onSubmit}
-      typeOfForm={"Delete Your Note"}
+      typeOfForm={"Add a New Note"}
     />
   );
 };
