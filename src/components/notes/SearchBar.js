@@ -1,18 +1,9 @@
 import React, { useState } from "react";
 
-export default function SearchBar() {
-  const [value, setValue] = useState("");
-
-  function handleChange(e) {
-    console.log("before");
-    setValue(e.target.value);
-    console.log(value);
-    console.log("after");
-  }
-
+export default function SearchBar(props) {
   return (
     <div>
-      <input type="text" onChange={handleChange} value={value} />
+      <input type="text" onChange={props.handleChange} value={props.value} />
     </div>
   );
 }

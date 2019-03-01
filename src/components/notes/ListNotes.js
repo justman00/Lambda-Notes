@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { fetchNotes, sortByLength } from "../../actions";
 import { connect } from "react-redux";
 import styled from "styled-components";
@@ -19,10 +19,16 @@ const MainText = styled.h2`
 `;
 
 const ListNotes = props => {
+  const [value, setValue] = useState("");
+
   useEffect(() => {
     console.log("changing");
     props.fetchNotes();
   }, []);
+
+  function handleChange(e) {
+    setValue(e.target.value);
+  }
 
   if (props.allNotes.length === 0) {
     return <div>Loading...</div>;
@@ -38,18 +44,21 @@ const ListNotes = props => {
   // };
   // console.log(props.allNotes);
 
-  console.log(props.allNotes);
-
   return (
     <>
       <MainText>Your Notes</MainText>
-      <SearchBar />
+      <SearchBar value={value} handleChange={handleChange} />
       <button onClick={() => props.sortByLength(props.allNotes)}>Length</button>
       <button onClick={() => props.fetchNotes()}>Default</button>
       <List>
-        {props.allNotes.map(note => {
-          return <NoteCard key={note._id} note={note} />;
-        })}
+        {props.allNotes
+          .filter(val => {
+            console.log(val.title);
+            return val.title.toLowerCase().includes(value.toLowerCase());
+          })
+          .map(note => {
+            return <NoteCard key={note._id} note={note} />;
+          })}
       </List>
     </>
   );
