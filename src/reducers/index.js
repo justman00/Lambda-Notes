@@ -13,7 +13,8 @@ const notesReducer = (state = {}, action) => {
     case FETCH_NOTES:
       const newState = {};
       action.payload.map(note => (newState[note._id] = note));
-      return { ...state, ...newState };
+      console.log(Object.values(newState));
+      return { ...newState };
     case FETCH_NOTE:
       return { ...state, [action.payload._id]: action.payload };
     case CREATE_NOTE:
