@@ -13,13 +13,13 @@ const notesReducer = (state = {}, action) => {
     case FETCH_NOTES:
       const newState = {};
       action.payload.map(note => (newState[note._id] = note));
-      return { ...newState };
+      return { ...state, ...newState };
     case FETCH_NOTE:
-      return { [action.payload._id]: action.payload };
+      return { ...state, [action.payload._id]: action.payload };
     case CREATE_NOTE:
       return { ...state };
     case EDIT_NOTE:
-      return { [action.payload._id]: action.payload };
+      return { ...state, [action.payload._id]: action.payload };
     case DELETE_NOTE:
       const withoutDeleted = {};
       Object.keys(state).forEach(key => {
@@ -29,7 +29,9 @@ const notesReducer = (state = {}, action) => {
       });
       return { ...withoutDeleted };
     case SORT_BY_LENGTH:
-      return { ...action.payload };
+      const newState2 = {};
+      action.payload.map(note => (newState2[note._id] = note));
+      return { ...newState2, ...state };
     default:
       return state;
   }
