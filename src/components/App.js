@@ -17,6 +17,7 @@ const MainLayout = styled.div`
 
 const SecondItem = styled.div`
   width: 80%;
+  margin-left: 20%;
 `;
 
 const App = () => {

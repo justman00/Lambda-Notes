@@ -7,16 +7,20 @@ const Card = styled.div`
   width: 28%;
   padding: 15px;
   border: 1px solid gray;
-
+  background: white;
+  height: 250px;
+  overflow: hidden;
   h1 {
-    font-size: 2rem;
+    font-size: 2.2rem;
     padding-bottom: 2rem;
+    font-weight: 600;
+    font-family: sans-serif;
     border-bottom: 1px solid lightgray;
   }
   p {
     font-size: 1.6rem;
     line-height: 1.25;
-    height: 200px;
+
     overflow: hidden;
     padding-top: 2rem;
   }

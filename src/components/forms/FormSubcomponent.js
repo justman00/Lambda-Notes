@@ -26,6 +26,7 @@ const FormSubcomponent = ({
         value={values.textBody}
         className="textarea-main"
       />
+      <Field type="text" name="tags" placeholder="tags" />
       <button className="btn-submit" type="submit">
         Submit
       </button>
@@ -38,14 +39,20 @@ export default withFormik({
     console.log(props);
     return {
       title: props.title,
-      textBody: props.textBody
+      textBody: props.textBody,
+      tags: props.tags
     };
   },
   validationSchema: yup.object().shape({
     title: yup.string().required("You must enter a title"),
-    textBody: yup.string().required("Enter your note please")
+    textBody: yup.string().required("Enter your note please"),
+    tags: yup.string()
   }),
-  handleSubmit({ title, textBody }, { props }) {
-    props.action({ title, textBody });
+  handleSubmit({ title, textBody, tags }, { props }) {
+    const tagsToPass = tags.split(";");
+    console.log(tagsToPass);
+    const data = { tags: tagsToPass, title, textBody };
+    console.log(data);
+    props.action(data);
   }
 })(FormSubcomponent);
