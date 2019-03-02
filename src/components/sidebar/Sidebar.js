@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import "../App.css";
+import { connect } from "react-redux";
 
 const StyledSidebar = styled.nav`
   width: 20%;
@@ -21,7 +22,29 @@ const Name = styled.h1`
   text-align: center;
 `;
 
-const SideBar = () => {
+const SideBar = props => {
+  const [titles, setTitles] = useState([]);
+  const [texts, setTexts] = useState([]);
+
+  useEffect(() => {
+    if (props.allNotes.length > 0) {
+      const allTitles = props.allNotes.map(note => note.title);
+      const allTexts = props.allNotes.map(note => note.textBody);
+      setTitles(allTitles);
+      setTexts(allTexts);
+      console.log("working");
+    }
+  }, [props.allNotes.length]);
+
+  if (props.allNotes.length === 0) {
+    return <div>Loading...</div>;
+  }
+
+  const rows = [titles, texts];
+  let csvContent =
+    "data:text/csv;charset=utf-8," + rows.map(e => e.join(",")).join("\n");
+  let encodedUri = encodeURI(csvContent);
+
   return (
     <StyledSidebar>
       <Name>Lambda Notes</Name>
@@ -31,8 +54,15 @@ const SideBar = () => {
       <Link className="btn" to="/create">
         + Create a New Note
       </Link>
+      <a className="btn" href={`${encodedUri}`} download={"lambda_notes.csv"}>
+        Export to CSV
+      </a>
     </StyledSidebar>
   );
 };
 
-export default SideBar;
+const mapStateToProps = state => ({
+  allNotes: Object.values(state.notes)
+});
+
+export default connect(mapStateToProps)(SideBar);
