@@ -163,6 +163,10 @@ body {
   top: 0;
 }
 
+.form {
+  width: 100%;
+}
+
 .form-title {
   margin: 50px;
   font-size: 3rem;
@@ -172,10 +176,12 @@ body {
 
 .input-main {
   display: block;
-  margin: 50px;
-  padding: 8px;
+  margin: 25px 50px 50px;
+  padding: 15px;
   font-size: 1.6rem;
   outline: none;
+  width: 50%;
+  border-radius: 5px;
 }
 
 .input-main::placeholder {
@@ -185,12 +191,12 @@ body {
 }
 
 .textarea-main {
-  margin: 50px;
+  margin: 25px 50px 50px;
   display: block;
-  margin: 50px;
-  padding: 8px;
+  padding: 15px;
   font-size: 1.6rem;
   outline: none;
+  border-radius: 5px;
 }
 
 .textarea-main::placeholder {
@@ -204,8 +210,16 @@ body {
   padding: 15px 20px;
   text-align: center;
   outline: none;
-  font-size: 2rem;
-  background: blue;
+  font-size: 2.4rem;
+  background: darkturquoise;
   color: white;
   border-radius: 10px;
+  width: 20%;
+  cursor: pointer;
+}
+
+.errors {
+  margin-left: 50px;
+  font-size: 1.4rem;
+  color: red;
 }

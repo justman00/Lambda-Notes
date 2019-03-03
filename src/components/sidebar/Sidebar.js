@@ -36,10 +36,6 @@ const SideBar = props => {
     }
   }, [props.allNotes.length]);
 
-  if (props.allNotes.length === 0) {
-    return <div>Loading...</div>;
-  }
-
   const rows = [titles, texts];
   let csvContent =
     "data:text/csv;charset=utf-8," + rows.map(e => e.join(",")).join("\n");

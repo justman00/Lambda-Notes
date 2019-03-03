@@ -13,6 +13,7 @@ const CreateForm = props => {
       history={props.history}
       action={onSubmit}
       typeOfForm={"Add a New Note"}
+      buttonText={"Create"}
     />
   );
 };

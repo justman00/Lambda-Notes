@@ -29,6 +29,7 @@ const EditForm = props => {
       typeOfForm={"Edit Your Note"}
       textBody={props.note.textBody}
       title={props.note.title}
+      buttonText={"Update"}
     />
   );
 };

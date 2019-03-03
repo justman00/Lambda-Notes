@@ -11,24 +11,35 @@ const FormSubcomponent = ({
   errors,
   touched,
   handleChange,
-  typeOfForm
+  typeOfForm,
+  buttonText
 }) => {
   return (
-    <Form>
+    <Form className="form">
       <h2 className="form-title">{typeOfForm}</h2>
-      <Field className="input-main" name="title" placeholder="Title" />{" "}
+      <div className="errors">
+        {touched.title && errors.title && <p>{errors.title}</p>}
+      </div>
+      <Field
+        autocomplete="off"
+        className="input-main"
+        name="title"
+        placeholder="Title"
+      />{" "}
+      <div className="errors">
+        {touched.textBody && errors.textBody && <p>{errors.textBody}</p>}
+      </div>
       <textarea
         name="textBody"
-        cols="40"
-        rows="15"
+        cols="70"
+        rows="25"
         onChange={handleChange}
         placeholder="Your note goes here"
         value={values.textBody}
         className="textarea-main"
       />
-      <Field type="text" name="tags" placeholder="tags" />
       <button className="btn-submit" type="submit">
-        Submit
+        {buttonText}
       </button>
     </Form>
   );
@@ -39,20 +50,16 @@ export default withFormik({
     console.log(props);
     return {
       title: props.title,
-      textBody: props.textBody,
-      tags: props.tags
+      textBody: props.textBody
     };
   },
   validationSchema: yup.object().shape({
     title: yup.string().required("You must enter a title"),
-    textBody: yup.string().required("Enter your note please"),
-    tags: yup.string()
+    textBody: yup.string().required("Enter your note please")
   }),
-  handleSubmit({ title, textBody, tags }, { props }) {
-    const tagsToPass = tags.split(";");
-    console.log(tagsToPass);
-    const data = { tags: tagsToPass, title, textBody };
-    console.log(data);
+  handleSubmit({ title, textBody }, { props }) {
+    const data = { title, textBody };
+
     props.action(data);
   }
 })(FormSubcomponent);
