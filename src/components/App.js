@@ -30,6 +30,7 @@ const App = () => {
         <Route path="/create" component={CreateForm} />
         <Route path="/edit/:id" component={EditForm} />
         <Route path="/delete/:id" component={DeleteForm} />
+        <Route path="/delete/:id" component={SingleNote} />
       </SecondItem>
     </MainLayout>
   );
