@@ -5,6 +5,19 @@ import styled from "styled-components";
 import NoteCard from "./NoteCard";
 import SearchBar from "./SearchBar";
 
+import gql from "graphql-tag";
+import { Query } from "react-apollo";
+
+const NOTES_QUERY = gql`
+  query NOTES_QUERY {
+    notes {
+      id
+      title
+      body
+    }
+  }
+`;
+
 const List = styled.section`
   display: flex;
   align-items: baseline;
@@ -52,9 +65,9 @@ const Button = styled.button`
   }
 `;
 
-const MainContent = styled.div`
-  margin-left: 20%;
-`;
+// const MainContent = styled.div`
+//   margin-left: 20%;
+// `;
 
 const ListNotes = props => {
   const [value, setValue] = useState("");
@@ -72,41 +85,45 @@ const ListNotes = props => {
     return <div>Loading...</div>;
   }
 
-  // const onSort = (arr, type) => {
-  //   if (type === "Length") {
-  //     props.sortByLength(arr);
-  //   } else if (type === "Default") {
-  //     console.log("da");
-  //     props.fetchNotes();
-  //   }
-  // };
-  // console.log(props.allNotes);
-
   return (
-    <>
-      <MainText>Your Notes:</MainText>
-      <SearchBar value={value} handleChange={handleChange} />
-      <Sorting>
-        <h3>Sort by:</h3>
-        <ButtonsDiv>
-          <Button onClick={() => props.sortByLength(props.allNotes)}>
-            Length
-          </Button>
-          <Button onClick={() => props.fetchNotes()}>Default</Button>
-        </ButtonsDiv>
-      </Sorting>
+    <Query query={NOTES_QUERY}>
+      {({ loading, error, data }) => {
+        if (loading) {
+          return <div>Loading</div>;
+        }
+        if (error) {
+          console.log(error);
+        }
+        console.log(data);
 
-      <List>
-        {props.allNotes
-          .filter(val => {
-            // console.log(val.title);
-            return val.title.toLowerCase().includes(value.toLowerCase());
-          })
-          .map(note => {
-            return <NoteCard key={note._id} note={note} />;
-          })}
-      </List>
-    </>
+        return (
+          <>
+            <MainText>Your Notes:</MainText>
+            <SearchBar value={value} handleChange={handleChange} />
+            <Sorting>
+              <h3>Sort by:</h3>
+              <ButtonsDiv>
+                <Button onClick={() => props.sortByLength(data.notes)}>
+                  Length
+                </Button>
+                <Button onClick={() => props.fetchNotes()}>Default</Button>
+              </ButtonsDiv>
+            </Sorting>
+
+            <List>
+              {data.notes
+                .filter(val => {
+                  // console.log(val.title);
+                  return val.title.toLowerCase().includes(value.toLowerCase());
+                })
+                .map(note => {
+                  return <NoteCard key={note.id} note={note} />;
+                })}
+            </List>
+          </>
+        );
+      }}
+    </Query>
   );
 };
 

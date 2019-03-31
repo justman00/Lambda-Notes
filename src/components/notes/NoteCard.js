@@ -31,10 +31,10 @@ export default function NoteCard({ note }) {
     <Card>
       <Link
         style={{ color: "black", textDecoration: "none" }}
-        to={`/note/${note._id}`}
+        to={`/note/${note.id}`}
       >
         <h1>{note.title}</h1>
-        <p>{note.textBody}</p>
+        <p>{note.body}</p>
       </Link>
     </Card>
   );
