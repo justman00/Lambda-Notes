@@ -1,7 +1,5 @@
 import React from "react";
 import { withFormik, Field, Form } from "formik";
-import { connect } from "react-router-dom";
-import { createNote } from "../../actions";
 import * as yup from "yup";
 
 import "../App.css";
