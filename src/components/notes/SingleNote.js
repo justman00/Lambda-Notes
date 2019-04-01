@@ -4,6 +4,19 @@ import { fetchNote } from "../../actions";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
+
+const SINGLE_NOTE_QUERY = gql`
+  query SingleNote($id: ID!) {
+    note(query: $id) {
+      id
+      body
+      title
+    }
+  }
+`;
+
 const SingleNoteStyled = styled.section`
   margin: 50px;
 
@@ -35,22 +48,38 @@ const BodyText = styled.p`
 `;
 
 const SingleNote = ({ match, fetchNote, note }) => {
-  useEffect(() => {
-    fetchNote(match.params.id);
-  }, []);
+  // useEffect(() => {
+  //   fetchNote(match.params.id);
+  // }, []);
 
-  if (!note) {
-    return <div>Loading...</div>;
-  }
+  // if (!note) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
-    <SingleNoteStyled>
-      <Title>{note.title}</Title>
-      <BodyText>{note.textBody}</BodyText>
+    <Query query={SINGLE_NOTE_QUERY} variables={{ id: match.params.id }}>
+      {({ loading, error, data }) => {
+        if (loading) {
+          return <div>Loading...</div>;
+        }
 
-      <Link to={`/edit/${note._id}`}>Edit this note</Link>
-      <Link to={`/delete/${note._id}`}>Delete this note</Link>
-    </SingleNoteStyled>
+        if (error) {
+          console.log(error);
+        }
+
+        console.log(data);
+
+        return (
+          <SingleNoteStyled>
+            <Title>{data.note.title}</Title>
+            <BodyText>{data.note.body}</BodyText>
+
+            <Link to={`/edit/${data.note.id}`}>Edit this note</Link>
+            <Link to={`/delete/${data.note.id}`}>Delete this note</Link>
+          </SingleNoteStyled>
+        );
+      }}
+    </Query>
   );
 };
 
