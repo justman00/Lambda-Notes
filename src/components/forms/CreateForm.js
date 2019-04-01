@@ -36,6 +36,7 @@ const CreateForm = props => {
             action={createNote}
             typeOfForm={"Add a New Note"}
             buttonText={"Create"}
+            match={props.match}
           />
         );
       }}
