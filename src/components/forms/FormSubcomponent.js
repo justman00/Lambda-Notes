@@ -19,7 +19,7 @@ const FormSubcomponent = ({
         {touched.title && errors.title && <p>{errors.title}</p>}
       </div>
       <Field
-        autocomplete="off"
+        autoComplete="off"
         className="input-main"
         name="title"
         placeholder="Title"
@@ -44,11 +44,10 @@ const FormSubcomponent = ({
 };
 
 export default withFormik({
-  mapPropsToValues(props) {
-    console.log(props);
+  mapPropsToValues() {
     return {
-      title: props.title,
-      textBody: props.textBody
+      title: "",
+      textBody: ""
     };
   },
   validationSchema: yup.object().shape({
@@ -56,8 +55,16 @@ export default withFormik({
     textBody: yup.string().required("Enter your note please")
   }),
   handleSubmit({ title, textBody }, { props }) {
-    const data = { title, textBody };
+    const body = textBody;
+    const data = { title, body };
 
-    props.action(data);
+    props
+      .action({
+        variables: {
+          title,
+          body
+        }
+      })
+      .then(() => props.history.push("/"));
   }
 })(FormSubcomponent);
