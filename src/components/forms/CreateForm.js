@@ -2,6 +2,7 @@ import React from "react";
 import FormSubcomponent from "./FormSubcomponent";
 import { connect } from "react-redux";
 import { createNote } from "../../actions";
+import { NOTES_QUERY } from "../notes/ListNotes";
 
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
@@ -20,7 +21,10 @@ const CreateForm = props => {
   // }
 
   return (
-    <Mutation mutation={CREATE_NOTE_MUTATION}>
+    <Mutation
+      mutation={CREATE_NOTE_MUTATION}
+      refetchQueries={data => [{ query: NOTES_QUERY }]}
+    >
       {(createNote, { data }) => {
         console.log(createNote);
 

@@ -8,7 +8,7 @@ import SearchBar from "./SearchBar";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 
-const NOTES_QUERY = gql`
+export const NOTES_QUERY = gql`
   query NOTES_QUERY {
     notes {
       id

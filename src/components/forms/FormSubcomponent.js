@@ -44,10 +44,10 @@ const FormSubcomponent = ({
 };
 
 export default withFormik({
-  mapPropsToValues() {
+  mapPropsToValues(props) {
     return {
-      title: "",
-      textBody: ""
+      title: props.title ? props.title : "",
+      textBody: props.textBody ? props.textBody : ""
     };
   },
   validationSchema: yup.object().shape({
@@ -56,13 +56,13 @@ export default withFormik({
   }),
   handleSubmit({ title, textBody }, { props }) {
     const body = textBody;
-    const data = { title, body };
 
     props
       .action({
         variables: {
           title,
-          body
+          body,
+          id: props.match.params.id
         }
       })
       .then(() => props.history.push("/"));

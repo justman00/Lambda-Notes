@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 
-const SINGLE_NOTE_QUERY = gql`
+export const SINGLE_NOTE_QUERY = gql`
   query SingleNote($id: ID!) {
     note(query: $id) {
       id
