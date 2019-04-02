@@ -1,7 +1,5 @@
-import React, { useEffect } from "react";
-import { connect } from "react-redux";
+import React from "react";
 import Modal from "../Modal";
-import { deleteNote, fetchNote } from "../../actions";
 
 import { Query, Mutation } from "react-apollo";
 import gql from "graphql-tag";
@@ -17,24 +15,10 @@ const DELETE_NOTE_MUTATION = gql`
 `;
 
 const DeleteForm = props => {
-  // useEffect(() => {
-  //   props.fetchNote(props.match.params.id);
-  // }, []);
-
-  // console.log(props.history);
-
   function onDismiss(e) {
     e.stopPropagation();
     props.history.goBack();
   }
-
-  // function onDelete() {
-  //   props.deleteNote(props.match.params.id).then(() => props.history.push("/"));
-  // }
-  // // console.log(props.note);
-  // if (!props.note) {
-  //   return <div>Loading...</div>;
-  // }
 
   return (
     <Query query={SINGLE_NOTE_QUERY} variables={{ id: props.match.params.id }}>
@@ -72,11 +56,4 @@ const DeleteForm = props => {
   );
 };
 
-const mapStateToProps = (state, ownProps) => ({
-  note: state.notes[ownProps.match.params.id]
-});
-
-export default connect(
-  mapStateToProps,
-  { deleteNote, fetchNote }
-)(DeleteForm);
+export default DeleteForm;

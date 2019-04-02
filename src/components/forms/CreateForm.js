@@ -1,9 +1,8 @@
 import React from "react";
 import FormSubcomponent from "./FormSubcomponent";
-import { connect } from "react-redux";
-import { createNote } from "../../actions";
-import { NOTES_QUERY } from "../notes/ListNotes";
 
+// graphql
+import { NOTES_QUERY } from "../notes/ListNotes";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 
@@ -16,10 +15,6 @@ const CREATE_NOTE_MUTATION = gql`
 `;
 
 const CreateForm = props => {
-  // function onSubmit(formValues) {
-  //   props.createNote(formValues).then(() => props.history.push("/"));
-  // }
-
   return (
     <Mutation
       mutation={CREATE_NOTE_MUTATION}
@@ -44,7 +39,4 @@ const CreateForm = props => {
   );
 };
 
-export default connect(
-  null,
-  { createNote }
-)(CreateForm);
+export default CreateForm;

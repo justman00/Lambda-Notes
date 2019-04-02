@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { fetchNote } from "../../actions";
 import styled from "styled-components";
@@ -48,14 +48,6 @@ const BodyText = styled.p`
 `;
 
 const SingleNote = ({ match, fetchNote, note }) => {
-  // useEffect(() => {
-  //   fetchNote(match.params.id);
-  // }, []);
-
-  // if (!note) {
-  //   return <div>Loading...</div>;
-  // }
-
   return (
     <Query query={SINGLE_NOTE_QUERY} variables={{ id: match.params.id }}>
       {({ loading, error, data }) => {
@@ -83,11 +75,4 @@ const SingleNote = ({ match, fetchNote, note }) => {
   );
 };
 
-const mapStateToProps = (state, ownProps) => ({
-  note: state.notes[ownProps.match.params.id]
-});
-
-export default connect(
-  mapStateToProps,
-  { fetchNote }
-)(SingleNote);
+export default SingleNote;

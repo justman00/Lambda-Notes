@@ -8,6 +8,8 @@ import EditForm from "./forms/EditForm";
 import DeleteForm from "./forms/DeleteForm";
 import "./App.css";
 import styled from "styled-components";
+import AuthForm from "./auth/AuthForm";
+import Provider from "./context";
 
 const MainLayout = styled.div`
   display: flex;
@@ -22,17 +24,20 @@ const SecondItem = styled.div`
 
 const App = () => {
   return (
-    <MainLayout>
-      <SideBar />
-      <SecondItem>
-        <Route path="/" exact component={ListNotes} />
-        <Route path="/note/:id" component={SingleNote} />
-        <Route path="/create" component={CreateForm} />
-        <Route path="/edit/:id" component={EditForm} />
-        <Route path="/delete/:id" component={DeleteForm} />
-        <Route path="/delete/:id" component={SingleNote} />
-      </SecondItem>
-    </MainLayout>
+    <Provider>
+      <MainLayout>
+        <SideBar />
+        <SecondItem>
+          <Route path="/login" component={AuthForm} />
+          <Route path="/" exact component={ListNotes} />
+          <Route path="/note/:id" component={SingleNote} />
+          <Route path="/create" component={CreateForm} />
+          <Route path="/edit/:id" component={EditForm} />
+          <Route path="/delete/:id" component={DeleteForm} />
+          <Route path="/delete/:id" component={SingleNote} />
+        </SecondItem>
+      </MainLayout>
+    </Provider>
   );
 };
 

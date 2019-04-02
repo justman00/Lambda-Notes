@@ -1,7 +1,5 @@
-import React, { useEffect } from "react";
-import { connect } from "react-redux";
+import React from "react";
 import FormSubcomponent from "./FormSubcomponent";
-import { editNote, fetchNote } from "../../actions";
 
 import { Mutation, Query } from "react-apollo";
 import gql from "graphql-tag";
@@ -17,24 +15,6 @@ const UPDATE_NOTE_MUTATION = gql`
 `;
 
 const EditForm = props => {
-  // function onSubmit(formValues) {
-  //   props
-  //     .editNote(props.match.params.id, formValues)
-  //     .then(() => props.history.goBack());
-  // }
-
-  // // console.log(props.match.params.id);
-
-  // useEffect(() => {
-  //   props.fetchNote(props.match.params.id);
-  // }, []);
-
-  // // console.log(props.note);
-
-  // if (!props.note) {
-  //   return <div>Loading...</div>;
-  // }
-
   return (
     <Query query={SINGLE_NOTE_QUERY} variables={{ id: props.match.params.id }}>
       {({ loading, error, data }) => {
@@ -77,11 +57,4 @@ const EditForm = props => {
   );
 };
 
-const mapStateToProps = (state, ownProps) => ({
-  note: state.notes[ownProps.match.params.id]
-});
-
-export default connect(
-  mapStateToProps,
-  { editNote, fetchNote }
-)(EditForm);
+export default EditForm;
