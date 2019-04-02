@@ -21,10 +21,6 @@ const CreateForm = props => {
       refetchQueries={data => [{ query: NOTES_QUERY }]}
     >
       {(createNote, { data }) => {
-        console.log(createNote);
-
-        console.log(data);
-
         return (
           <FormSubcomponent
             history={props.history}

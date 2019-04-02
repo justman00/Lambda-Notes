@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { Context } from "../context";
 
 function AuthForm(props) {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const ctx = useContext(Context);
 
   function onSubmit(e) {
     e.preventDefault();
-    props.authAction({ username, password });
+    ctx.dispatch({ type: "login" });
+    props.authAction(email, password);
   }
 
   function handleChange(e, action) {
@@ -17,9 +21,9 @@ function AuthForm(props) {
     <form onSubmit={onSubmit}>
       <input
         type="text"
-        name="username"
-        onChange={e => handleChange(e, setUsername)}
-        value={username}
+        name="email"
+        onChange={e => handleChange(e, setEmail)}
+        value={email}
       />
       <input
         type="text"
@@ -27,6 +31,7 @@ function AuthForm(props) {
         onChange={e => handleChange(e, setPassword)}
         value={password}
       />
+      <button type="submit">Submit</button>
     </form>
   );
 }

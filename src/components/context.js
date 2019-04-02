@@ -1,13 +1,31 @@
-import React, { useState } from "react";
+import React, { useReducer } from "react";
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "login": {
+      return { ...state, isLoggedIn: true };
+    }
+    case "logout": {
+      return { ...state, isLoggedIn: false };
+    }
+    default: {
+      return state;
+    }
+  }
+}
+
+const initialState = {
+  isLoggedIn: false
+};
 
 export const Context = React.createContext();
 
 const Provider = props => {
-  const [store, setStore] = useState({ value: "hello" });
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-  return <Context.Provider value={store}>{props.children}</Context.Provider>;
+  const value = { state, dispatch };
+
+  return <Context.Provider value={value}>{props.children}</Context.Provider>;
 };
-
-export const Consumer = Context.Consumer;
 
 export default Provider;

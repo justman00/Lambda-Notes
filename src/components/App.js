@@ -8,7 +8,7 @@ import EditForm from "./forms/EditForm";
 import DeleteForm from "./forms/DeleteForm";
 import "./App.css";
 import styled from "styled-components";
-import AuthForm from "./auth/AuthForm";
+import Login from "./auth/Login";
 import Provider from "./context";
 
 const MainLayout = styled.div`
@@ -28,7 +28,7 @@ const App = () => {
       <MainLayout>
         <SideBar />
         <SecondItem>
-          <Route path="/login" component={AuthForm} />
+          <Route path="/login" component={Login} />
           <Route path="/" exact component={ListNotes} />
           <Route path="/note/:id" component={SingleNote} />
           <Route path="/create" component={CreateForm} />
