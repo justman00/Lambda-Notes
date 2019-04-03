@@ -10,6 +10,7 @@ import "./App.css";
 import styled from "styled-components";
 import Login from "./auth/Login";
 import Provider from "./context";
+import Register from "./auth/Register";
 
 const MainLayout = styled.div`
   display: flex;
@@ -28,6 +29,7 @@ const App = () => {
       <MainLayout>
         <SideBar />
         <SecondItem>
+          <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
           <Route path="/" exact component={ListNotes} />
           <Route path="/note/:id" component={SingleNote} />

@@ -16,8 +16,7 @@ function reducer(state, action) {
 
 const initialState = {
   isLoggedIn: false,
-  userId: null,
-  notes: []
+  userId: null
 };
 
 export const Context = React.createContext();

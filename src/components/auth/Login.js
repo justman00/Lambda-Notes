@@ -19,9 +19,14 @@ function Login(props) {
           };
           login(variables);
         }
+
         if (data && !ctx.state.userId) {
           localStorage.setItem("lambdaNotes", data.login.token);
           ctx.dispatch({ type: "login", payload: data.login.user.id });
+        }
+
+        if (ctx.state.isLoggedIn) {
+          props.history.push("/");
         }
 
         return <AuthForm authAction={authAction} history={props.history} />;

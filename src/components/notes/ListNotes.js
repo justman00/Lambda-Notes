@@ -1,8 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import NoteCard from "./NoteCard";
 import SearchBar from "./SearchBar";
-import { Context } from "../context";
 
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
@@ -79,7 +78,6 @@ const Button = styled.button`
 
 const ListNotes = props => {
   const [value, setValue] = useState("");
-  const ctx = useContext(Context);
 
   function handleChange(e) {
     setValue(e.target.value);
