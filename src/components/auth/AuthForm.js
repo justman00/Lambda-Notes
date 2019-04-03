@@ -1,4 +1,5 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 function AuthForm(props) {
   const [email, setEmail] = useState("");
@@ -15,29 +16,32 @@ function AuthForm(props) {
   }
 
   return (
-    <form onSubmit={onSubmit}>
-      <input
-        type="text"
-        name="email"
-        onChange={e => handleChange(e, setEmail)}
-        value={email}
-      />
-      {props.register && (
+    <>
+      <form onSubmit={onSubmit}>
         <input
           type="text"
-          name="name"
-          onChange={e => handleChange(e, setName)}
-          value={name}
+          name="email"
+          onChange={e => handleChange(e, setEmail)}
+          value={email}
         />
-      )}
-      <input
-        type="text"
-        name="password"
-        onChange={e => handleChange(e, setPassword)}
-        value={password}
-      />
-      <button type="submit">Submit</button>
-    </form>
+        {props.register && (
+          <input
+            type="text"
+            name="name"
+            onChange={e => handleChange(e, setName)}
+            value={name}
+          />
+        )}
+        <input
+          type="text"
+          name="password"
+          onChange={e => handleChange(e, setPassword)}
+          value={password}
+        />
+        <button type="submit">Submit</button>
+      </form>
+      <Link to={`${props.to}`}>{props.to.toUpperCase()}</Link>
+    </>
   );
 }
 

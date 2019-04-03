@@ -1,5 +1,5 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import ListNotes from "./notes/ListNotes";
 import SideBar from "./sidebar/Sidebar";
 import SingleNote from "./notes/SingleNote";
@@ -11,6 +11,7 @@ import styled from "styled-components";
 import Login from "./auth/Login";
 import Provider from "./context";
 import Register from "./auth/Register";
+import { Context } from "./context";
 
 const MainLayout = styled.div`
   display: flex;
@@ -27,20 +28,87 @@ const App = () => {
   return (
     <Provider>
       <MainLayout>
-        <SideBar />
-        <SecondItem>
-          <Route path="/register" component={Register} />
-          <Route path="/login" component={Login} />
-          <Route path="/" exact component={ListNotes} />
-          <Route path="/note/:id" component={SingleNote} />
-          <Route path="/create" component={CreateForm} />
-          <Route path="/edit/:id" component={EditForm} />
-          <Route path="/delete/:id" component={DeleteForm} />
-          <Route path="/delete/:id" component={SingleNote} />
-        </SecondItem>
+        <Context.Consumer>
+          {val => {
+            if (val.state.isLoggedIn) {
+              return <SideBar />;
+            }
+            return null;
+          }}
+        </Context.Consumer>
+        <Context.Consumer>
+          {val => {
+            return (
+              <SecondItem>
+                <Route path="/register" component={Register} />
+                <Route path="/login" component={Login} />
+                <Route
+                  path="/"
+                  exact
+                  render={props => {
+                    return checkForAuth(ListNotes, val.state.isLoggedIn, props);
+                  }}
+                />
+                <Route
+                  path="/note/:id"
+                  render={props => {
+                    return checkForAuth(
+                      SingleNote,
+                      val.state.isLoggedIn,
+                      props
+                    );
+                  }}
+                />
+                <Route
+                  path="/create"
+                  render={props => {
+                    return checkForAuth(
+                      CreateForm,
+                      val.state.isLoggedIn,
+                      props
+                    );
+                  }}
+                />
+                <Route
+                  path="/edit/:id"
+                  render={props => {
+                    return checkForAuth(EditForm, val.state.isLoggedIn, props);
+                  }}
+                />
+                <Route
+                  path="/delete/:id"
+                  render={props => {
+                    return checkForAuth(
+                      DeleteForm,
+                      val.state.isLoggedIn,
+                      props
+                    );
+                  }}
+                />
+                <Route
+                  path="/delete/:id"
+                  render={props => {
+                    return checkForAuth(
+                      SingleNote,
+                      val.state.isLoggedIn,
+                      props
+                    );
+                  }}
+                />
+              </SecondItem>
+            );
+          }}
+        </Context.Consumer>
       </MainLayout>
     </Provider>
   );
 };
+
+function checkForAuth(Component, loggedIn, props) {
+  if (loggedIn) {
+    return <Component {...props} />;
+  }
+  return <Redirect to="/login" />;
+}
 
 export default App;

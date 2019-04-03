@@ -27,11 +27,18 @@ function Register(props) {
         }
 
         if (ctx.state.isLoggedIn) {
-          props.history.push("/");
+          setTimeout(() => {
+            props.history.push("/");
+          }, 0);
         }
 
         return (
-          <AuthForm authAction={authAction} history={props.history} register />
+          <AuthForm
+            authAction={authAction}
+            history={props.history}
+            register
+            to="login"
+          />
         );
       }}
     </Mutation>

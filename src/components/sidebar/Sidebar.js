@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import "../App.css";
 import { connect } from "react-redux";
 import { Context } from "../context";
@@ -27,8 +27,6 @@ const SideBar = props => {
   const [titles, setTitles] = useState([]);
   const [texts, setTexts] = useState([]);
   const ctx = useContext(Context);
-
-  console.log("Context is here", ctx);
 
   useEffect(() => {
     if (props.allNotes.length > 0) {

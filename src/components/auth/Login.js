@@ -26,10 +26,18 @@ function Login(props) {
         }
 
         if (ctx.state.isLoggedIn) {
-          props.history.push("/");
+          setTimeout(() => {
+            props.history.push("/");
+          }, 0);
         }
 
-        return <AuthForm authAction={authAction} history={props.history} />;
+        return (
+          <AuthForm
+            authAction={authAction}
+            history={props.history}
+            to="register"
+          />
+        );
       }}
     </Mutation>
   );
