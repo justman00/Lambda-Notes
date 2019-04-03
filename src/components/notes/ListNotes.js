@@ -1,22 +1,34 @@
-import React, { useEffect, useState } from "react";
-import { fetchNotes, sortByLength } from "../../actions";
-import { connect } from "react-redux";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import NoteCard from "./NoteCard";
 import SearchBar from "./SearchBar";
+import { Context } from "../context";
 
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 
 export const NOTES_QUERY = gql`
   query NOTES_QUERY {
-    notes {
+    myNotes {
       id
       title
       body
     }
   }
 `;
+
+const sortByLength = arr => {
+  return arr
+    .map(val => ({ ...val, length: val.body.length }))
+    .sort((a, b) => a.length - b.length)
+    .reverse()
+    .map(val => ({
+      id: val.id,
+      title: val.title,
+      tags: val.tags,
+      body: val.body
+    }));
+};
 
 const List = styled.section`
   display: flex;
@@ -65,36 +77,23 @@ const Button = styled.button`
   }
 `;
 
-// const MainContent = styled.div`
-//   margin-left: 20%;
-// `;
-
 const ListNotes = props => {
   const [value, setValue] = useState("");
-
-  useEffect(() => {
-    // console.log("changing");
-    props.fetchNotes();
-  }, []);
+  const ctx = useContext(Context);
 
   function handleChange(e) {
     setValue(e.target.value);
   }
 
-  if (props.allNotes.length === 0) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <Query query={NOTES_QUERY}>
-      {({ loading, error, data }) => {
+      {({ loading, error, data, refetch }) => {
         if (loading) {
           return <div>Loading</div>;
         }
         if (error) {
           console.log(error);
         }
-        console.log(data);
 
         return (
           <>
@@ -103,15 +102,15 @@ const ListNotes = props => {
             <Sorting>
               <h3>Sort by:</h3>
               <ButtonsDiv>
-                <Button onClick={() => props.sortByLength(data.notes)}>
+                <Button onClick={() => sortByLength(data.myNotes)}>
                   Length
                 </Button>
-                <Button onClick={() => props.fetchNotes()}>Default</Button>
+                <Button onClick={() => refetch()}>Default</Button>
               </ButtonsDiv>
             </Sorting>
 
             <List>
-              {data.notes
+              {data.myNotes
                 .filter(val => {
                   // console.log(val.title);
                   return val.title.toLowerCase().includes(value.toLowerCase());
@@ -127,11 +126,4 @@ const ListNotes = props => {
   );
 };
 
-const mapStateToProps = state => ({
-  allNotes: Object.values(state.notes)
-});
-
-export default connect(
-  mapStateToProps,
-  { fetchNotes, sortByLength }
-)(ListNotes);
+export default ListNotes;

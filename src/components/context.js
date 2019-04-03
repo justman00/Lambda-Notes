@@ -3,7 +3,7 @@ import React, { useReducer } from "react";
 function reducer(state, action) {
   switch (action.type) {
     case "login": {
-      return { ...state, isLoggedIn: true };
+      return { ...state, isLoggedIn: true, userId: action.payload };
     }
     case "logout": {
       return { ...state, isLoggedIn: false };
@@ -15,7 +15,9 @@ function reducer(state, action) {
 }
 
 const initialState = {
-  isLoggedIn: false
+  isLoggedIn: false,
+  userId: null,
+  notes: []
 };
 
 export const Context = React.createContext();

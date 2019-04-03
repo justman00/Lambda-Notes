@@ -41,18 +41,3 @@ export const deleteNote = id => async dispatch => {
   await axios.delete(`https://fe-notes.herokuapp.com/note/delete/${id}`);
   dispatch({ type: DELETE_NOTE, payload: id });
 };
-
-export const sortByLength = arr => dispatch => {
-  const data = arr
-    .map(val => ({ ...val, length: val.textBody.length }))
-    .sort((a, b) => a.length - b.length)
-    .reverse()
-    .map(val => ({
-      _id: val._id,
-      title: val.title,
-      tags: val.tags,
-      textBody: val.textBody
-    }));
-
-  dispatch({ type: SORT_BY_LENGTH, payload: data });
-};

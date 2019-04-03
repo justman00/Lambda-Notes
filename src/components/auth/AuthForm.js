@@ -1,16 +1,13 @@
 import React, { useState, useContext } from "react";
-import { Context } from "../context";
 
 function AuthForm(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const ctx = useContext(Context);
-
   function onSubmit(e) {
     e.preventDefault();
-    ctx.dispatch({ type: "login" });
     props.authAction(email, password);
+    props.history.push("/");
   }
 
   function handleChange(e, action) {

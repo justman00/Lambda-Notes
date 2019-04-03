@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import AuthForm from "./AuthForm";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
+import { Context } from "../context";
 
 function Login(props) {
+  const ctx = useContext(Context);
+
   return (
     <Mutation mutation={LOGIN_MUTATION}>
-      {(login, { data }) => {
+      {(login, { data, loading }) => {
         function authAction(email, password) {
           const variables = {
             variables: {
@@ -16,11 +19,12 @@ function Login(props) {
           };
           login(variables);
         }
-        if (data) {
+        if (data && !ctx.state.userId) {
           localStorage.setItem("lambdaNotes", data.login.token);
+          ctx.dispatch({ type: "login", payload: data.login.user.id });
         }
 
-        return <AuthForm authAction={authAction} />;
+        return <AuthForm authAction={authAction} history={props.history} />;
       }}
     </Mutation>
   );
