@@ -110,7 +110,6 @@ const ListNotes = props => {
             <List>
               {data.myNotes
                 .filter(val => {
-                  // console.log(val.title);
                   return val.title.toLowerCase().includes(value.toLowerCase());
                 })
                 .map(note => {
