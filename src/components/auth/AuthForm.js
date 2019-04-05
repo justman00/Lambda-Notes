@@ -80,24 +80,24 @@ function AuthForm(props) {
     <>
       <Form onSubmit={onSubmit}>
         <InputBox>
-          <label htmlFor="username">Username</label>
+          <label htmlFor="email">Email</label>
           <input
-            type="text"
+            type="email"
             name="email"
             onChange={e => handleChange(e, setEmail)}
             value={email}
-            id="username"
+            id="email"
           />
         </InputBox>
         {props.register && (
           <InputBox>
-            <label htmlFor="department">Department</label>
+            <label htmlFor="name">Name</label>
             <input
               type="text"
               name="name"
               onChange={e => handleChange(e, setName)}
               value={name}
-              id="department"
+              id="name"
             />
           </InputBox>
         )}

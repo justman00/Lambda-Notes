@@ -12,8 +12,12 @@ import { ApolloProvider } from "react-apollo";
 
 const client = new ApolloClient({
   uri: "http://localhost:4000",
-  headers: {
-    Authorization: `Bearer ${localStorage.getItem("lambdaNotes")}`
+  request(operation) {
+    operation.setContext({
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("lambdaNotes")}`
+      }
+    });
   }
 });
 
